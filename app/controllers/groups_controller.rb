@@ -6,8 +6,10 @@ class GroupsController < ApplicationController
   end
 
   def create
-    group = Group.new(group_params)
-    if group.save
+    @group = Group.new(group_params)
+    if @group.save
+      group_user = current_user.group_users.new(group_id: @group.id)
+      group_user.save
       redirect_to groups_path, notice: "You have created group successfully."
     else
       render :new
