@@ -16,6 +16,7 @@
             <th>紹介文</th>
             <th>メンバーリスト</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -33,10 +34,15 @@
               </td>
               <% if @group.owner_id != current_user.id %>
                 <% if @group.joined_by?(current_user) %>
-                  <td><%= link_to 'leave this group', group_group_user_path(@group), method: :delete, class: "btn btn-sm btn-danger" %></td>
+                  <td><%= link_to 'Leave this group', group_group_users_path(@group), method: :delete, class: "btn btn-sm btn-danger" %></td>
                 <% else %>
-                  <td><%= link_to 'Join this group', group_group_user_path(@group), method: :post, class: "btn btn-sm btn-success" %></td>
+                  <td><%= link_to 'Join this group', group_group_users_path(@group), method: :post, class: "btn btn-sm btn-success" %></td>
                 <% end %>
+                <% else %>
+                <td>
+                <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %>
+                <%= link_to 'Notice an Event', group_new_mail_path(@group), class: "btn btn-sm btn-info" %>
+                </td>
               <% end %>
             </tr>
         </tbody>
